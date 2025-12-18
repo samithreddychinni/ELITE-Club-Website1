@@ -1,18 +1,20 @@
-import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server';
+import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-    const { searchParams, origin } = new URL(request.url)
-    const code = searchParams.get('code')
-    const next = searchParams.get('next') ?? '/'
+    const { searchParams, origin } = new URL(request.url);
+    const code = searchParams.get('code');
+    const next = searchParams.get('next') ?? '/';
 
     if (code) {
-        const supabase = await createClient()
-        const { error } = await supabase.auth.exchangeCodeForSession(code)
+        const supabase = await createClient();
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
-            return NextResponse.redirect(`${origin}${next}`)
+            // Redirect to the intended destination or home
+            return NextResponse.redirect(`${origin}${next}`);
         }
     }
 
-    return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+    // If there's an error, redirect to auth error page
+    return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }

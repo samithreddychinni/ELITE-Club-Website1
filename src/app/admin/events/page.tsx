@@ -1,4 +1,3 @@
-
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import ApplicationsTable from '@/components/admin/ApplicationsTable';

@@ -1,4 +1,3 @@
-
 import { createClient } from '@/lib/supabase/server';
 import EventCard from '@/components/events/EventCard';
 import { FloatingDock } from "@/components/ui/FloatingDock";
