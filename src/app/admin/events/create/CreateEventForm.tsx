@@ -10,6 +10,7 @@ export default function CreateEventForm() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [formFields, setFormFields] = useState<FormFieldConfig[]>([]);
+    const [applicationType, setApplicationType] = useState<'form' | 'external'>('form');
 
     async function handleSubmit(formData: FormData) {
         setLoading(true);
@@ -105,8 +106,53 @@ export default function CreateEventForm() {
                 </div>
             </div>
 
+            {/* Application Method Selection */}
+            <div className="glass border border-card-border p-6 rounded-2xl space-y-6 shadow-lg">
+                <h3 className="text-xl font-bold text-foreground font-clash">Application Method</h3>
+
+                <input type="hidden" name="application_type" value={applicationType} />
+
+                <div className="flex gap-4">
+                    <button
+                        type="button"
+                        onClick={() => setApplicationType('form')}
+                        className={`flex-1 py-3 px-4 rounded-xl border transition-all ${applicationType === 'form'
+                                ? 'bg-primary/20 border-primary text-primary font-bold'
+                                : 'bg-white/5 border-card-border text-muted hover:bg-white/10'
+                            }`}
+                    >
+                        Inbuilt Form
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setApplicationType('external')}
+                        className={`flex-1 py-3 px-4 rounded-xl border transition-all ${applicationType === 'external'
+                                ? 'bg-primary/20 border-primary text-primary font-bold'
+                                : 'bg-white/5 border-card-border text-muted hover:bg-white/10'
+                            }`}
+                    >
+                        External Link
+                    </button>
+                </div>
+
+                {applicationType === 'external' && (
+                    <div className="animate-in fade-in slide-in-from-top-4 duration-300">
+                        <label className="block text-sm font-medium text-foreground mb-2">External Application Link</label>
+                        <input
+                            name="application_link"
+                            type="url"
+                            required
+                            placeholder="https://forms.google.com/..."
+                            className="w-full px-4 py-3 bg-white/50 border border-card-border rounded-xl text-foreground focus:border-primary outline-none transition-colors"
+                        />
+                    </div>
+                )}
+            </div>
+
             {/* Custom Form Builder */}
-            <EventFormBuilder fields={formFields} onChange={setFormFields} />
+            {applicationType === 'form' && (
+                <EventFormBuilder fields={formFields} onChange={setFormFields} />
+            )}
 
             <div className="flex justify-end pt-4">
                 <button

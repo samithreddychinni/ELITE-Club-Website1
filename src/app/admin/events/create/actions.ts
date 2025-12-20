@@ -23,7 +23,9 @@ export async function createEventAction(formData: FormData, formFields: FormFiel
         team_size_max: 1,
         is_registration_open: formData.get('is_registration_open') === 'on',
         requires_approval: true,
-        banner_url: formData.get('banner_url') || null
+        banner_url: formData.get('banner_url') || null,
+        application_type: formData.get('application_type') || 'form',
+        application_link: formData.get('application_link') || null
     };
 
     const cleanFields = formFields.map(f => ({
@@ -31,7 +33,7 @@ export async function createEventAction(formData: FormData, formFields: FormFiel
         field_label: f.field_label,
         field_type: f.field_type,
         is_required: f.is_required,
-        options: f.options,
+        options: f.options?.map(o => o.trim()).filter(Boolean) || [],
         placeholder: f.placeholder,
         display_order: f.display_order,
         auto_fill_from: f.auto_fill_from || null,

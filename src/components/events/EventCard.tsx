@@ -16,6 +16,8 @@ interface EventCardProps {
         end_date: string | null;
         banner_url: string | null;
         status: EventStatus;
+        application_type?: 'form' | 'external';
+        application_link?: string | null;
     };
     userRole: UserRole;
     registrationStatus: RegistrationStatus;
@@ -40,6 +42,22 @@ export default function EventCard({ event, userRole, registrationStatus, isLogge
                 >
                     Manage Event
                 </Link>
+            );
+        }
+
+        if (event.application_type === 'external' && event.application_link) {
+            return (
+                <a
+                    href={event.application_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-2 bg-primary text-foreground font-semibold rounded-full hover:scale-105 transition-transform text-sm shadow-md flex items-center gap-2"
+                >
+                    Apply Now
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </a>
             );
         }
 

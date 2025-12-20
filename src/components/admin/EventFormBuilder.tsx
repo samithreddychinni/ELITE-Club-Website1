@@ -131,8 +131,8 @@ export default function EventFormBuilder({ fields, onChange }: EventFormBuilderP
                                 <input
                                     type="text"
                                     placeholder="Option 1, Option 2, Option 3"
-                                    value={field.options?.join(', ')}
-                                    onChange={e => updateField(field.id, { options: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                                    value={field.options?.join(',')}
+                                    onChange={e => updateField(field.id, { options: e.target.value.split(',') })}
                                     className="w-full px-3 py-2 bg-white/50 border border-card-border rounded-lg text-sm text-foreground focus:border-primary outline-none transition-colors"
                                 />
                             </div>
