@@ -544,9 +544,12 @@ gsap.from(letters, {
                         <div className="grid md:grid-cols-2 gap-8 stagger-card">
                         {filteredEvents.map((event) => (
                             <div key={event.id} className="group">
-                            <div className="glass overflow-hidden rounded-2xl h-full border border-white/10 hover-lift transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10">
-
-                                <EventImageSlider images={event.images} title={event.title} />
+                                <div className="relative glass overflow-hidden rounded-2xl h-full border border-white/10 hover-lift transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10">
+                               <EventImageSlider
+                                    key={event.id}
+                                    images={event.images}
+                                    title={event.title}
+                                    />
 
                                 <div className="absolute top-4 left-4 z-10">
                                 <span className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm text-primary text-xs font-medium border border-primary/90">
